@@ -7,8 +7,11 @@ Parsing the eyesight .dae means:
 1. Open with an xml reader and add the following namespaces:
 
 "C", "http://www.collada.org/2005/11/COLLADASchema"
+
 "RoundingEdgeNormal", "http://www.w3.org/2001/XMLSchema-instance"
+
 "RoughSurface", "http://www.w3.org/2001/XMLSchema-instance"
+
 "PearlGroupPrincipledBSDF", "http://www.w3.org/2001/XMLSchema-instance"
 
 2. Select single node: //C:scene/C:instance_visual_scene
