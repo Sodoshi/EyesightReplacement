@@ -57,6 +57,8 @@
     <Compile Include="Enums\MaterialNodeInput.cs" />
     <Compile Include="Enums\MaterialNodeType.cs" />
     <Compile Include="Helpers\ArrayHelper.cs" />
+    <Compile Include="Processor\GeometryIndices.cs" />
+    <Compile Include="Processor\Light.cs" />
     <Compile Include="Processor\MaterialEffect.cs" />
     <Compile Include="Processor\Material.cs" />
     <Compile Include="Processor\Camera.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
 using EyesightReplacement.Helpers;
 namespace EyesightReplacement.Processor
@@ -8,7 +7,7 @@ namespace EyesightReplacement.Processor
     {
         public Geometry(XmlNamespaceManager xmlns, XmlElement geometryElement)
         {
-            MeshId = IntPtr.Zero;
+            GeometryIndices = new List<GeometryIndices>();
             GeometryName = (geometryElement.HasAttribute("id")
                 ? geometryElement.Attributes["id"].Value
                 : string.Empty).Replace("#", string.Empty);
@@ -29,22 +28,26 @@ namespace EyesightReplacement.Processor
                 }
             }
             Vertices = vertices.ToArray();
-            Indices = ArrayHelper.ConvertToIntArray(geometryElement.SelectSingleNode(
-                "descendant::C:mesh/C:triangles/C:p", xmlns)?.InnerText ?? string.Empty);
-            var faces = new List<int>();
-            if (Indices.Length > 2)
+            var triangles = geometryElement.SelectNodes(
+                "descendant::C:mesh/C:triangles/C:p", xmlns);
+
+            if(triangles!=null)
             {
-                for (var i = 0; i + 2 < Indices.Length; i += 3)
+                foreach (XmlElement triangleNorms in triangles)
                 {
-                    faces.Add(3);
+                    
+                    if(!string.IsNullOrWhiteSpace(triangleNorms.InnerText))
+                    {
+                        GeometryIndices.Add(new GeometryIndices(triangleNorms.InnerText));
+                    }
                 }
             }
-            Faces = faces.ToArray();
+
+
         }
         public Vertex[] Vertices { get; }
-        public int[] Indices { get; }
-        public int[] Faces { get; }
+        public readonly List<GeometryIndices> GeometryIndices;
+       
         public string GeometryName { get; }
-        public IntPtr MeshId { get; set; }
     }
 }

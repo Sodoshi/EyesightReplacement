@@ -6,6 +6,7 @@ namespace EyesightReplacement.Processor
     public class MaterialEffect
     {
         public IntPtr EffectId { get; set; }
+        public float Transparency { get; }
         public readonly float[] DiffuseColor = {0f, 0f, 0f, 0f};
         public MaterialEffect(XmlNamespaceManager xmlns, XmlElement effectElement)
         {
@@ -40,6 +41,12 @@ namespace EyesightReplacement.Processor
                 }
                 switch(sid)
                 {
+                    case "transparency":
+                        if(float.TryParse(data, out var transparency))
+                        {
+                            Transparency = transparency;
+                        }
+                        break;
                     case "diffuse":
                         MapFloatArray(data, ref DiffuseColor);
                         break;
