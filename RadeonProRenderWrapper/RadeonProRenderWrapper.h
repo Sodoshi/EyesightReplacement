@@ -6,9 +6,12 @@
 #define RADEONPRORENDERWRAPPER_API __declspec(dllimport)
 #endif
 
+extern "C" RADEONPRORENDERWRAPPER_API rpr_light CreateAmbientLight(rpr_float const * transform);
+extern "C" RADEONPRORENDERWRAPPER_API rpr_light CreateDirectionalLight(rpr_float const * transform, rpr_float size, rpr_float intensity, rpr_float const * color);
+
 extern "C" RADEONPRORENDERWRAPPER_API int CreateContext(rpr_uint width, rpr_uint height);
 extern "C" RADEONPRORENDERWRAPPER_API rpr_image CreateImage(rpr_char *fileName);
-extern "C" RADEONPRORENDERWRAPPER_API rpr_light CreateLightFromImage(rpr_image img);
+extern "C" RADEONPRORENDERWRAPPER_API rpr_light CreateLightFromImage(rpr_image img, rpr_float intensity);
 extern "C" RADEONPRORENDERWRAPPER_API rpr_material_node CreateMaterial(rpr_int materialNodeType);
 extern "C" RADEONPRORENDERWRAPPER_API rpr_shape CreateMesh(rpr_float const * vertices, size_t num_vertices, rpr_int vertex_stride, rpr_float const * normals, size_t num_normals, rpr_int normal_stride, rpr_float const * texcoords, size_t num_texcoords, rpr_int texcoord_stride, rpr_int const * vertex_indices, rpr_int vidx_stride, rpr_int const * normal_indices, rpr_int nidx_stride, rpr_int const * texcoord_indices, rpr_int tidx_stride, rpr_int const * num_face_vertices, size_t num_faces);
 extern "C" RADEONPRORENDERWRAPPER_API rpr_shape CreateMeshInstance(rpr_shape mesh);

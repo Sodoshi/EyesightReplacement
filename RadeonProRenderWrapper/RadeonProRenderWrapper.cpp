@@ -54,13 +54,14 @@ rpr_image CreateImage(rpr_char *fileName)
 	}
 	return img;
 }
-rpr_light CreateLightFromImage(rpr_image img)
+rpr_light CreateLightFromImage(rpr_image img, rpr_float intensity)
 {
 	rpr_light light = nullptr;
 	{
-		CHECK( rprContextCreateEnvironmentLight(context, &light));
-		CHECK( rprEnvironmentLightSetImage(light, img));
-		CHECK( rprSceneAttachLight(scene, light));
+		CHECK(rprContextCreateEnvironmentLight(context, &light));
+		CHECK(rprEnvironmentLightSetImage(light, img));
+		CHECK(rprEnvironmentLightSetIntensityScale(light, intensity));
+		CHECK(rprSceneAttachLight(scene, light));
 	}
 	return light;
 }
@@ -153,4 +154,28 @@ void TranslateShape(rpr_shape shape, float x, float y, float z)
 {
 	RadeonProRender::matrix m = RadeonProRender::translation(RadeonProRender::float3(x, y, z));
 	CHECK(rprShapeSetTransform(shape, RPR_TRUE, &m.m00));
+}
+rpr_light CreateAmbientLight(rpr_float const * transform)
+{
+	rpr_light light=nullptr;
+	{
+		CHECK(rprContextCreateSkyLight(context, &light));
+		CHECK(rprSkyLightSetTurbidity(light, 0.f));
+		CHECK(rprSceneAttachLight(scene, light));
+		//CHECK(rprContextCreateDirectionalLight(context, &light));
+		//CHECK(rprLightSetTransform(light, RPR_TRUE, transform));
+		//CHECK(rprDirectionalLightSetRadiantPower3f(light, 10000000, 10000000, 10000000));
+		//CHECK(rprSceneAttachLight(scene, light));
+	}
+	return light;
+}
+rpr_light CreateDirectionalLight(rpr_float const * transform, rpr_float size, rpr_float intensity, rpr_float const * color)
+{
+	rpr_light light=nullptr;
+	{
+		CHECK(rprContextCreateSkyLight(context, &light));
+		CHECK(rprSkyLightSetTurbidity(light, 0.f));
+		CHECK(rprSceneAttachLight(scene, light));
+	}
+	return light;
 }

@@ -4,7 +4,7 @@ namespace EyesightReplacement.Processor
 {
     public class Camera
     {
-        public Camera(XmlNamespaceManager xmlns, XmlElement cameraLibraryElement, XmlElement cameraSceneElement)
+        public Camera(XmlNamespaceManager xmlns, XmlElement cameraSceneElement, XmlElement cameraLibraryElement)
         {
             Transform =
                 ArrayHelper.ConvertToFloatArray(cameraSceneElement.SelectSingleNode(

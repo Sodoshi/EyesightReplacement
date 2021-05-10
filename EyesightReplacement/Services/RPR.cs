@@ -6,11 +6,15 @@ namespace EyesightReplacement.Services
     {
         private const string dllName = "RadeonProRenderWrapper";
         [DllImport(dllName)]
+        public static extern IntPtr CreateAmbientLight(float[] transform, float size, float intensity, float[] color);
+        [DllImport(dllName)]
         public static extern int CreateContext(int width, int height);
+        [DllImport(dllName)]
+        public static extern IntPtr CreateDirectionalLight(float[] transform, float size, float intensity, float[] color);
         [DllImport(dllName)]
         public static extern IntPtr CreateImage(string fileName);
         [DllImport(dllName)]
-        public static extern IntPtr CreateLightFromImage(IntPtr img);
+        public static extern IntPtr CreateLightFromImage(IntPtr img, float intensity);
         [DllImport(dllName)]
         public static extern IntPtr CreateMaterial(int materialNodeType);
         [DllImport(dllName)]
